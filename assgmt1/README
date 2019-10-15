@@ -1,0 +1,51 @@
+Note: Run the parts in sequence 3.1, 3.2, 3.3, because of dependcies in the next parts from the previous parts
+3.1- As specified in assignment
+$ chmod +x create-dict.sh
+$ chmod +x lookup.sh
+$ ./create-dict.sh lex.txt > L.fst
+$ ./lookup.sh L.fst ALICE
+
+3.2-
+$ chmod +x create-let-dict.sh
+$ ./create-let-dict.sh lex.txt L.fst > Q.fst
+
+3.3-
+$ chmod +x create-prefix-dict.sh
+$ ./create-prefix-dict.sh Q.fst > QPrefix.fst
+$ ./lookup.sh QPrefix.fst PRES
+
+3.4-
+$ chmod +x setup-merge.sh
+$ chmod +x lookup-merge.sh
+$ ./setup-merge.sh lex.txt fstdir
+$ ./lookup-merge.sh fstdir PRESAKTIG
+
+3.1)
+p1_create.py creates the text files for input symbols, output symbols, and FST in specified format
+p1_out.py created the text file for the Acceptor of the string input
+p1_check.py outputs the contents of composed FST, in the correct formats, AND REMOVES ALL EXTRA FILES CREATED, EXCEPT FOR L.FST
+create-dict.sh calls p1_create.py and compiles L.FST into binary format
+lookup.sh checks if the string to be made into an acceptor exists in input symbols of L.FST, if it does then composition printed, otherwise creates empty text file
+
+WE ALLOW OSYMS.TXT to remain afetr this operation as it will be used in later cases
+
+
+3.2)
+p2_create.py creates text files for input symbols, output symbols, and FST in specified format
+
+3.3)
+create-prefix-dict first uses fstsynchronize on Q.fst
+The text file for synchronized fst is generated, and all states are made terminal states
+p3_create.py edits the syncronized text file to make all states terminal
+p3_out.py creates transducer text files for the input
+The composition is then fstminimized and fstepsnormalized
+p3_check.py then gets the maximally long sequence of phones
+NOTE: IN P3, I OBSERVED SPECIFIC CASES OF SIMGLE LETTER INPUTS WHICH WERE MAPPED TO TWO PHONES,
+WE CAN CHECK SEPERATELY FOR THESE CASE, WE CAN CONSIDER THIS A PREPROCESSING STEP 
+
+3.4)
+WE CREATE QSUFFIX.FST BY REVERSING WORDS AND PHONES IN LEXICON, AND THEN REVERSING SUFFIX, AFTER THIS WE CAN FOLLOW
+SAME PROCEDURE AS BEFORE
+QSUFFIX AND QPREFIX SUCCESFULLY MADE
+THE LOOKUP-MERGE is succesful
+

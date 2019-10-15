@@ -1,0 +1,1 @@
+python3 presuf.py $1 $2
